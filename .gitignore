@@ -1,0 +1,15 @@
+# Too large for GitHub (100 MB limit); keep locally for dev — host elsewhere for production
+images/VIDEO 1.mp4
+images/VIDEO 3.mov
+
+# Dependencies
+node_modules/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+npm-debug.log*

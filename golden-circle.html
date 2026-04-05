@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Golden Circle - Maxim's Jungle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="gc-page">
+
+  <div class="gc-container">
+
+    <div class="site-header">
+      <a href="index.html" class="logo-group">
+        <div class="logo-underline"></div>
+        <h1 class="logo-text">MAXIM'S<br>JUNGLE</h1>
+      </a>
+      <nav class="nav-group">
+        <a href="me.html" class="nav-link">Me</a>
+        <a href="projects.html" class="nav-link active">Projects</a>
+        <a href="contact.html" class="nav-link">Get&nbsp;in&nbsp;touch</a>
+      </nav>
+    </div>
+
+    <!-- Hero -->
+    <p class="gc-date">AUG 2025</p>
+    <img src="images/the golden circle main image.jpg" alt="The Golden Circle" class="gc-hero-img">
+    <h2 class="gc-title">The Golden Circle</h2>
+    <div class="gc-tags">
+      <span class="gc-tags-row">Event Organization <span class="gc-tag-sep"></span> Visual Identity <span class="gc-tag-sep"></span> Branding</span>
+      <span class="gc-tags-row">Creative Direction <span class="gc-tag-sep"></span> Marketing Strategy</span>
+    </div>
+    <p class="gc-description">The Golden Circle is a charity boxing and kickboxing event that transforms sport into support. Bringing together athletes, guests and a large audience, the event combines high-energy fights with a powerful humanitarian cause - helping two young people continue their battle for life. More than a fight night, it is an emotional live experience driven by community, purpose and strong visual identity.</p>
+
+    <!-- Video 1 (large, centered) -->
+    <video class="gc-video1" muted loop playsinline>
+      <source src="images/VIDEO 1.mp4" type="video/mp4">
+    </video>
+
+    <!-- The Challenge -->
+    <h3 class="gc-section-title gc-challenge-title">The Challenge</h3>
+    <video class="gc-video2" muted loop playsinline>
+      <source src="images/VIDEO 2.mp4" type="video/mp4">
+    </video>
+    <p class="gc-section-text gc-challenge-text">Creating The Golden Circle meant building more than a sports event. The challenge was to grow a charity boxing and kickboxing event into a large-scale, emotionally driven experience - one that could attract a bigger audience, clearly communicate its cause, and stand out visually in a crowded digital space. The event needed a strong identity that could unite sport, charity and community, while remaining authentic, powerful and respectful to the people it was created for.</p>
+
+    <!-- Parrots on branch -->
+    <img src="images/parrot 1.png" alt="" class="gc-parrot1">
+
+    <!-- Monstera leaf -->
+    <img src="images/monstera-leaf-node.png" alt="" class="gc-monstera">
+
+    <!-- Image 2 - collage (right side, tall) -->
+    <img src="images/image 2 golden circle project.png" alt="The Challenge" class="gc-img2">
+
+    <!-- Thinking Differently -->
+    <h3 class="gc-section-title gc-thinking-title">Thinking Differently</h3>
+    <p class="gc-section-text gc-thinking-text">Instead of treating the event as a standard sports promotion, the visual direction focused on storytelling and emotion. Bold colors, dynamic typography and consistent visuals were used to build anticipation and trust across social media, print and video. The goal was not only to promote fights, but to create a recognizable identity that people could instantly connect with and remember.</p>
+
+    <!-- Image 3 - social media (right side) -->
+    <img src="images/image 3 golden circle project.png" alt="Thinking Differently" class="gc-img3">
+
+    <!-- Eagle -->
+    <img src="images/amazing-osprey-sea-hawk-trying-hunt 1.png" alt="" class="gc-eagle">
+
+    <!-- Video 3 -->
+    <video class="gc-video3" muted loop playsinline>
+      <source src="images/VIDEO 3.mov" type="video/mp4">
+    </video>
+
+    <!-- Final Note -->
+    <h3 class="gc-section-title gc-final-title">Final Note</h3>
+    <p class="gc-section-text gc-final-text">The outcome of The Golden Circle was not a perfectly polished or over-structured event - and that was intentional. It was a living, emotional experience, driven by strong visuals, clear direction and real human energy.
+
+As part of the organizing team, my role was to design and shape the visual identity and branding of the event. This overall look and creative direction became the foundation that guided everyone involved afterward - photographers, videographers, decorators and partners - so that every element worked together toward a single goal: creating an event worthy of its purpose and the effort behind it.
+
+This was not a project I did alone. The Golden Circle was made possible by the work of many dedicated professionals, sponsors and organizers. While the design and branding were delivered by me, the videos, photos, decoration and flawless execution existed because of the people who brought their expertise, passion and time into this cause. What makes this project special is not only how it looked - but why it existed and what it achieved.</p>
+
+    <!-- Image 4 - fight posters -->
+    <img src="images/image 4 golden circle project.png" alt="Main Event" class="gc-img4">
+
+    <!-- Image 5 - website mockup -->
+    <img src="images/image 5 golden circle project.png" alt="Website Design" class="gc-img5">
+
+    <!-- Return -->
+    <a href="projects.html" class="gc-return-link">
+      <p class="gc-return-text">RETURN</p>
+      <div class="gc-return-line"></div>
+    </a>
+
+    <!-- Red macaw -->
+    <img src="images/parrot 2.png" alt="" class="gc-macaw">
+
+  </div>
+
+  <script>
+    const videos = document.querySelectorAll('.gc-video1, .gc-video2, .gc-video3');
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.play();
+        } else {
+          entry.target.pause();
+        }
+      });
+    }, { threshold: 0.3 });
+    videos.forEach(function(v) { observer.observe(v); });
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <img src="images/capybara-node.png" alt="" class="footer-scene">
+    <a href="index.html" class="footer-col footer-left">
+      <div class="footer-line"></div>
+      <h2 class="footer-logo">MAXIM'S<br>JUNGLE</h2>
+    </a>
+    <div class="footer-col footer-center">
+      <div class="footer-line"></div>
+      <a href="me.html" class="footer-nav-link">Me</a>
+      <a href="projects.html" class="footer-nav-link">Projects</a>
+      <a href="contact.html" class="footer-nav-link">Get in touch</a>
+    </div>
+    <div class="footer-col footer-right">
+      <div class="footer-line-wide"></div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link" aria-label="Email">
+          <svg width="43" height="34" viewBox="0 0 43 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="39" height="30" rx="4" stroke="white" stroke-width="4"/>
+            <path d="M2 6L21.5 20L41 6" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <a href="#" class="footer-social-link" aria-label="Instagram">
+          <svg width="43" height="43" viewBox="0 0 43 43" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="39" height="39" rx="12" stroke="white" stroke-width="3"/>
+            <circle cx="21.5" cy="21.5" r="9" stroke="white" stroke-width="3"/>
+            <circle cx="33" cy="10" r="2.5" fill="white"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+    <a href="projects.html" class="footer-bottom-left">
+      <p class="footer-showcase">PORTFOLIO<br>SHOWCASE</p>
+      <div class="footer-line"></div>
+    </a>
+  </footer>
+
+  <script>
+    (function() {
+      function fit() {
+        var w = document.documentElement.clientWidth;
+        var h = window.innerHeight;
+        var s = Math.min(w / 1440, h / 801, 1.25);
+        document.documentElement.style.setProperty('--s', s);
+      }
+      fit();
+      window.addEventListener('resize', fit);
+      window.addEventListener('orientationchange', function() { setTimeout(fit, 100); });
+    })();
+  </script>
+</body>
+</html>

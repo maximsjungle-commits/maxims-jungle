@@ -1,0 +1,4128 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --s: 1;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #F0F0F0;
+}
+
+html:has(.landing-body),
+body.landing-body {
+  overflow-x: hidden;
+}
+
+/* Stacking: transformed collage can composite above the next sibling — keep footer on top so the seam is clean */
+.landing-hero {
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: #F0F0F0;
+  display: flow-root;
+}
+
+@media (min-width: 721px) {
+  .landing-hero {
+    min-height: calc(801px * var(--s));
+  }
+}
+
+body.landing-body .footer {
+  z-index: 1;
+}
+
+/* Full-width shell: leaf is NOT inside the centered column (avoids clipping & “double” edge) */
+
+.page-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  /* Grow with --s when scale > 1 so the 1440×801 artboard fills wide monitors */
+  max-width: min(100%, calc(1440px * var(--s)));
+  margin: 0 auto;
+  height: calc(801px * var(--s));
+  min-height: calc(801px * var(--s));
+  /* Leave a clear strip on the left so the leaf stays visible on all viewports */
+  background: linear-gradient(
+    to right,
+    transparent 0,
+    transparent calc(150px * var(--s) + env(safe-area-inset-left, 0px)),
+    #F0F0F0 calc(150px * var(--s) + env(safe-area-inset-left, 0px)),
+    #F0F0F0 100%
+  );
+  overflow: hidden;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ============================================
+   LEFT-ANCHORED ELEMENTS (pinned to left edge)
+   ============================================ */
+
+.monstera-leaf {
+  position: absolute;
+  left: env(safe-area-inset-left, 0px);
+  top: 0;
+  width: calc(150px * var(--s));
+  height: auto;
+  max-height: calc(267px * var(--s));
+  aspect-ratio: 150 / 267;
+  object-fit: contain;
+  object-position: left top;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.logo-group {
+  position: absolute;
+  left: max(16px, calc(4px * var(--s)));
+  top: calc(53px * var(--s));
+  z-index: 12;
+  isolation: isolate;
+}
+
+.logo-underline {
+  width: calc(80px * var(--s));
+  height: calc(10px * var(--s));
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.logo-group:hover .logo-underline {
+  width: calc(141px * var(--s));
+}
+
+.logo-text {
+  margin-top: calc(8px * var(--s));
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: calc(32px * var(--s));
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.welcome-text {
+  position: absolute;
+  left: max(16px, calc(150px * var(--s)));
+  top: calc(323px * var(--s));
+  width: calc(222px * var(--s));
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: calc(32px * var(--s));
+  line-height: 1.125em;
+  color: #090909;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  isolation: isolate;
+}
+
+.wt-line1 { text-align: right; font-weight: 500; }
+.wt-line2 { text-align: center; padding-right: calc(40px * var(--s)); font-weight: 700; font-size: calc(42px * var(--s)); }
+.wt-line3 { text-align: left; font-weight: 900; }
+
+.portfolio-section {
+  position: absolute;
+  left: max(16px, calc(4px * var(--s)));
+  top: calc(663px * var(--s));
+  z-index: 12;
+  isolation: isolate;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.portfolio-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: calc(32px * var(--s));
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.portfolio-underline {
+  margin-top: calc(8px * var(--s));
+  width: calc(80px * var(--s));
+  height: calc(10px * var(--s));
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.portfolio-section:hover .portfolio-underline {
+  width: calc(179px * var(--s));
+}
+
+/* Figma: name & Designer use sage bars; portfolio rule is black */
+
+/* ============================================
+   RIGHT-ANCHORED ELEMENTS (pinned to right edge)
+   ============================================ */
+
+.nav-group {
+  position: absolute;
+  left: calc(1054px * var(--s));
+  right: auto;
+  top: calc(53px * var(--s));
+  width: auto;
+  max-width: calc(100% - 32px);
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: clamp(calc(36px * var(--s)), 3vw, calc(59px * var(--s)));
+  z-index: 8;
+}
+
+.nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 450;
+  font-size: calc(18px * var(--s));
+  line-height: 1.2;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav-link:hover {
+  color: #090909;
+}
+
+.nav-link.active {
+  color: #090909;
+}
+
+/* Centered 1440×801-scaled header strip (same logo + nav as landing) */
+.site-header {
+  position: relative;
+  width: 100%;
+  max-width: min(100%, calc(1440px * var(--s)));
+  margin-left: auto;
+  margin-right: auto;
+  min-height: calc(120px * var(--s));
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  box-sizing: border-box;
+  z-index: 12;
+}
+
+a.logo-group {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Projects: align header strip to viewport like landing */
+.proj-scroll > .site-header {
+  position: absolute;
+  left: calc((100vw - min(100vw, calc(1440px * var(--s)))) / 2);
+  top: 0;
+  width: min(100vw, calc(1440px * var(--s)));
+  margin-left: 0;
+  margin-right: 0;
+  min-height: calc(120px * var(--s));
+  z-index: 15;
+}
+
+.info-panel {
+  position: absolute;
+  right: max(16px, calc(57px * var(--s)));
+  left: auto;
+  top: calc(272px * var(--s));
+  width: calc(340px * var(--s));
+  z-index: 12;
+  isolation: isolate;
+  background: #F0F0F0;
+  padding-left: calc(12px * var(--s));
+}
+
+.name-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: calc(48px * var(--s));
+  line-height: 1.0833em;
+  color: #090909;
+}
+
+.name-underline {
+  margin-top: calc(1px * var(--s));
+  width: calc(168px * var(--s));
+  height: calc(10px * var(--s));
+  background: #789D7D;
+}
+
+.categories {
+  margin-top: calc(9px * var(--s));
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: calc(20px * var(--s));
+  line-height: 2.6em;
+  color: #090909;
+}
+
+.categories span:not(.sep) {
+  white-space: nowrap;
+}
+
+.categories .sep {
+  display: inline-block;
+  width: calc(3px * var(--s));
+  height: calc(23px * var(--s));
+  background: #090909;
+  margin: 0 calc(15px * var(--s));
+  flex-shrink: 0;
+}
+
+.role-text {
+  margin-left: auto;
+  margin-right: calc(-40px * var(--s));
+  width: fit-content;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: calc(48px * var(--s));
+  line-height: 1.0833em;
+  color: #090909;
+}
+
+.role-underline {
+  margin-top: calc(1px * var(--s));
+  margin-left: auto;
+  margin-right: calc(-40px * var(--s));
+  width: calc(209px * var(--s));
+  height: calc(10px * var(--s));
+  background: #789D7D;
+}
+
+.frog-photo {
+  position: absolute;
+  right: max(8px, calc(20px * var(--s)));
+  left: auto;
+  top: calc(567px * var(--s));
+  width: calc(198px * var(--s));
+  height: calc(234px * var(--s));
+  object-fit: contain;
+  z-index: 9;
+  pointer-events: none;
+}
+
+/* ============================================
+   HERO: portrait + collage (single aligned stack)
+   ============================================ */
+
+/* Collage frame = Figma node 194:37 @ x:328.92 y:42.97 (not centered — pin to artboard) */
+.hero-visual {
+  position: absolute;
+  left: calc(328.92px * var(--s));
+  top: calc(42.97px * var(--s));
+  transform: none;
+  width: calc(781.73px * var(--s));
+  height: calc(758.03px * var(--s));
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/*
+ * Collage = Figma node 194:2, mask origin (328.92, 42.97), size 781.73×758.03.
+ * Desktop: exact px × --s. Mobile: % of same box (see 720px query).
+ */
+.hero-visual-tile {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: auto;
+  /* No fill — white gutters come from landing-collage-gutters.svg (Figma); #fff looked like extra “outside” squares */
+  background: transparent;
+  box-sizing: border-box;
+}
+
+
+.hero-visual-tile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  transform: scale(1);
+  transform-origin: center center;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  pointer-events: none;
+}
+
+/* Figma 194:19 uses fill/stretch in-frame; asset export matches crop — fill tile box */
+.hero-visual-tile--photo img {
+  object-fit: fill;
+  object-position: center top;
+  filter: grayscale(1) contrast(1.08);
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.hero-visual-tile:hover img {
+  transform: scale(1.08);
+}
+
+.hero-visual-tile--photo:hover img {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-visual-tile img {
+    transition: none;
+  }
+  .hero-visual-tile:hover img {
+    transform: scale(1);
+  }
+}
+
+/* Figma layer order: photo is bottommost; illustration/khan/mask sit above in overlap */
+.hero-visual-tile--photo {
+  background: transparent;
+  left: calc(218.08px * var(--s));
+  top: calc(0.03px * var(--s));
+  width: calc(369px * var(--s));
+  height: calc(757px * var(--s));
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.hero-visual-tile--illustration {
+  left: calc(-16.92px * var(--s));
+  top: calc(293.03px * var(--s));
+  width: calc(277px * var(--s));
+  height: calc(465px * var(--s));
+  z-index: 2;
+}
+
+.hero-visual-tile--khan {
+  left: calc(508.08px * var(--s));
+  top: calc(547.03px * var(--s));
+  width: calc(277px * var(--s));
+  height: calc(211px * var(--s));
+  z-index: 3;
+}
+
+.hero-visual-tile--billboard {
+  left: calc(587.29px * var(--s));
+  top: calc(332.94px * var(--s));
+  width: calc(140.28px * var(--s));
+  height: calc(201.11px * var(--s));
+  z-index: 5;
+}
+
+/* Figma 195:85 → 195:81 → 195:83 (bottom → top among the three) */
+.hero-visual-tile--ethere {
+  left: calc(274.08px * var(--s));
+  top: calc(548.03px * var(--s));
+  width: calc(220.13px * var(--s));
+  height: calc(209.88px * var(--s));
+  z-index: 6;
+}
+
+.hero-visual-tile--stellar {
+  left: calc(274.08px * var(--s));
+  top: calc(387.03px * var(--s));
+  width: calc(143.72px * var(--s));
+  height: calc(146.92px * var(--s));
+  z-index: 7;
+}
+
+.hero-visual-tile--tag {
+  left: calc(432.08px * var(--s));
+  top: calc(343.03px * var(--s));
+  width: calc(141.22px * var(--s));
+  height: calc(191.4px * var(--s));
+  z-index: 8;
+}
+
+/* White grid lines between center tiles — exact vectors from Figma node 197:36 */
+.collage-gutter {
+  position: absolute;
+  background: #F0F0F0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.collage-gutter--left {
+  left: calc(260.08px * var(--s));
+  top: calc(290.03px * var(--s));
+  width: calc(14.09px * var(--s));
+  height: calc(467.97px * var(--s));
+}
+
+.collage-gutter--v1 {
+  left: calc(418.08px * var(--s));
+  top: calc(329.03px * var(--s));
+  width: calc(14px * var(--s));
+  height: calc(205px * var(--s));
+}
+
+.collage-gutter--v2 {
+  left: calc(573.21px * var(--s));
+  top: calc(342.66px * var(--s));
+  width: calc(14.09px * var(--s));
+  height: calc(191.4px * var(--s));
+}
+
+.collage-gutter--v3 {
+  left: calc(494.3px * var(--s));
+  top: calc(548.15px * var(--s));
+  width: calc(14.09px * var(--s));
+  height: calc(209.88px * var(--s));
+}
+
+.collage-gutter--h1 {
+  left: calc(274.08px * var(--s));
+  top: calc(373.03px * var(--s));
+  width: calc(150px * var(--s));
+  height: calc(14px * var(--s));
+}
+
+.collage-gutter--h2 {
+  left: calc(418.08px * var(--s));
+  top: calc(329.03px * var(--s));
+  width: calc(169px * var(--s));
+  height: calc(14px * var(--s));
+}
+
+.collage-gutter--h3 {
+  left: calc(270.08px * var(--s));
+  top: calc(533.03px * var(--s));
+  width: calc(460px * var(--s));
+  height: calc(16px * var(--s));
+}
+
+/* ---------- Responsive: stacked layout (readable on phones) ---------- */
+@media (max-width: 900px) {
+  .nav-group {
+    left: auto;
+    right: max(12px, 2vw);
+    width: auto;
+    max-width: calc(100% - 24px);
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    gap: clamp(10px, 2.5vw, 40px);
+  }
+
+  .nav-link {
+    font-size: clamp(13px, 2.8vw, 18px);
+  }
+}
+
+@media (max-width: 720px) {
+  .page-wrapper {
+    height: auto;
+    min-height: auto;
+    max-width: none;
+    padding: clamp(12px, 4vw, 20px);
+    padding-bottom: clamp(32px, 8vw, 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(20px, 5vw, 32px);
+    overflow: visible;
+    background: linear-gradient(
+      to right,
+      transparent 0,
+      transparent calc(clamp(88px, 26vw, 150px) + env(safe-area-inset-left, 0px)),
+      #F0F0F0 calc(clamp(88px, 26vw, 150px) + env(safe-area-inset-left, 0px)),
+      #F0F0F0 100%
+    );
+  }
+
+  .monstera-leaf {
+    left: env(safe-area-inset-left, 0px);
+    width: clamp(88px, 26vw, 150px);
+    max-height: clamp(150px, 48vw, 267px);
+  }
+
+  .logo-group {
+    position: relative;
+    left: 0;
+    top: 0;
+    padding-top: clamp(36px, 10vw, 52px);
+  }
+
+  .contact-hero .site-header .logo-group {
+    left: 10px;
+  }
+
+  .gc-container .site-header .logo-group,
+  .khan-container .site-header .logo-group,
+  .se-container .site-header .logo-group,
+  .rb-container .site-header .logo-group,
+  .su-container .site-header .logo-group,
+  .eb-container .site-header .logo-group,
+  .kb-container .site-header .logo-group {
+    left: 7px;
+  }
+
+  .nav-group {
+    position: relative;
+    right: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    justify-content: space-between;
+    max-width: none;
+  }
+
+  .site-header {
+    max-width: none;
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(12px, 3vw, 24px);
+    padding-left: clamp(12px, 4vw, 20px);
+    padding-right: clamp(12px, 4vw, 20px);
+    padding-top: clamp(12px, 4vw, 20px);
+  }
+
+  .proj-scroll > .site-header {
+    position: relative;
+    left: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  .welcome-text {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 20rem;
+    font-size: clamp(1.125rem, 4.5vw, 2rem);
+  }
+
+  .wt-line1,
+  .wt-line2,
+  .wt-line3 {
+    text-align: left;
+    padding-right: 0;
+  }
+
+  .hero-visual {
+    position: relative;
+    left: 0;
+    top: 0;
+    transform: none;
+    width: 100%;
+    max-width: min(420px, 100%);
+    height: auto;
+    aspect-ratio: 781.73 / 758.03;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* % layout scales with fluid collage width (px×--s breaks when width ≠ 781.73×--s) */
+  .hero-visual-tile--photo {
+    left: 27.897%;
+    top: 0.004%;
+    width: 47.203%;
+    height: 99.864%;
+  }
+
+  .hero-visual-tile--illustration {
+    left: -2.164%;
+    top: 38.656%;
+    width: 35.434%;
+    height: 61.345%;
+  }
+
+  .hero-visual-tile--khan {
+    left: 64.99%;
+    top: 72.165%;
+    width: 35.434%;
+    height: 27.838%;
+  }
+
+  .hero-visual-tile--billboard {
+    left: 75.127%;
+    top: 43.921%;
+    width: 17.945%;
+    height: 26.531%;
+  }
+
+  .hero-visual-tile--stellar {
+    left: 35.062%;
+    top: 51.057%;
+    width: 18.385%;
+    height: 19.382%;
+  }
+
+  .hero-visual-tile--tag {
+    left: 55.272%;
+    top: 45.253%;
+    width: 18.065%;
+    height: 25.25%;
+  }
+
+  .hero-visual-tile--ethere {
+    left: 35.062%;
+    top: 72.297%;
+    width: 28.159%;
+    height: 27.688%;
+  }
+
+  .collage-gutter {
+    display: none;
+  }
+
+  .info-panel {
+    position: relative;
+    right: auto;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .name-text,
+  .role-text {
+    font-size: clamp(1.75rem, 7vw, 3rem);
+  }
+
+  .role-text,
+  .role-underline {
+    margin-left: 0;
+  }
+
+  .categories {
+    justify-content: center;
+    font-size: clamp(0.75rem, 3.2vw, 1.15rem);
+  }
+
+  .categories .sep {
+    margin: 0 clamp(8px, 2vw, 15px);
+  }
+
+  .portfolio-section {
+    position: relative;
+    left: 0;
+    top: 0;
+    text-align: center;
+  }
+
+  .portfolio-text {
+    font-size: clamp(1.125rem, 4.5vw, 2rem);
+  }
+
+  .frog-photo {
+    position: relative;
+    right: auto;
+    left: 0;
+    top: 0;
+    width: clamp(120px, 40vw, 198px);
+    height: auto;
+    aspect-ratio: 198 / 234;
+    margin-left: auto;
+    margin-right: 0;
+  }
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #121212;
+  overflow: hidden;
+}
+
+.footer-scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.footer-col {
+  position: absolute;
+  z-index: 2;
+}
+
+a.footer-col.footer-left {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.footer-left {
+  left: 5.49%;
+  top: 19.73%;
+}
+
+.footer-center {
+  left: 50%;
+  top: 19.73%;
+}
+
+.footer-right {
+  right: 9.86%;
+  top: 19.73%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.footer-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #F0F0F0;
+  margin-bottom: 0.56vw;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.footer-logo {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #F0F0F0;
+}
+
+.footer-left:hover .footer-line {
+  width: 9.8vw;
+}
+
+.footer-nav-link {
+  display: block;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.39vw;
+  line-height: 1.8em;
+  color: #F0F0F0;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.footer-nav-link:hover {
+  opacity: 0.7;
+}
+
+.footer-line-wide {
+  width: 8.19vw;
+  height: 0.694vw;
+  background: #F0F0F0;
+  margin-bottom: 0.97vw;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 2.26vw;
+  align-items: center;
+}
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.footer-social-link:hover {
+  opacity: 0.7;
+}
+
+.footer-social-link svg {
+  width: 2.95vw;
+  height: auto;
+}
+
+.footer-bottom-left {
+  position: absolute;
+  left: 5.49%;
+  top: 59.93%;
+  z-index: 2;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.footer-showcase {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #F0F0F0;
+  margin-bottom: 0.56vw;
+}
+
+.footer-bottom-left:hover .footer-line {
+  width: 12.4vw;
+}
+
+/* ============================================
+   ME PAGE – ABOUT SECTION
+   ============================================ */
+
+.me-hero {
+  position: relative;
+  width: 100%;
+  height: 55.625vw;
+  background: #F0F0F0;
+  overflow: hidden;
+}
+
+/* Full-width header strip + logo flush with “About me” (5.49vw) */
+.me-sloth {
+  position: absolute;
+  left: 38.26vw;
+  top: 0;
+  width: 33.13vw;
+  height: 15.9vw;
+  object-fit: contain;
+  object-position: top center;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.me-plant-right {
+  position: absolute;
+  right: 0;
+  top: 2.5vw;
+  width: 20.07vw;
+  height: 53.13vw;
+  object-fit: contain;
+  object-position: right top;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.me-plant-bottom {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 39.93vw;
+  height: 14.24vw;
+  object-fit: contain;
+  object-position: left bottom;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.me-logo {
+  position: absolute;
+  left: 5.49vw;
+  top: 3.68vw;
+  z-index: 3;
+  text-decoration: none;
+}
+
+.me-logo-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.me-logo:hover .me-logo-line {
+  width: 9.79vw;
+}
+
+.me-logo-text {
+  margin-top: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.me-nav {
+  position: absolute;
+  right: 4.93vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.1vw;
+  z-index: 3;
+}
+
+.me-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.me-nav-link.active {
+  color: #000;
+}
+
+.me-nav-link:hover {
+  color: #090909;
+}
+
+.me-about-title {
+  position: absolute;
+  /* Same horizontal origin as landing logo (centered 1440×--s column + logo inset) */
+  left: calc(
+    (100vw - min(100vw, calc(1440px * var(--s)))) / 2 +
+    max(16px, calc(4px * var(--s)))
+  );
+  top: 15.9vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.47vw;
+  line-height: 1.4em;
+  color: #090909;
+  z-index: 3;
+}
+
+.me-bio {
+  position: absolute;
+  left: calc(
+    (100vw - min(100vw, calc(1440px * var(--s)))) / 2 +
+    max(16px, calc(4px * var(--s)))
+  );
+  top: 20.75vw;
+  width: 42.99vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 1.74em;
+  color: #090909;
+  z-index: 3;
+}
+
+.me-photo-wrapper {
+  position: absolute;
+  left: 58.96vw;
+  top: 11.11vw;
+  width: 32.22vw;
+  height: 32.22vw;
+  z-index: 4;
+}
+
+.me-photo-wrapper::after {
+  content: '';
+  position: absolute;
+  left: 1.18vw;
+  top: 1.11vw;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  box-shadow: 0 0.278vw 1.39vw rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+.me-photo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* ============================================
+   ME PAGE – DESIGN PHILOSOPHY SECTION
+   ============================================ */
+
+.me-philosophy {
+  position: relative;
+  width: 100%;
+  background: #F0F0F0;
+  border-top: 0.347vw solid #000;
+  overflow: hidden;
+  padding-bottom: 6vw;
+}
+
+.me-plant-left {
+  position: absolute;
+  left: 0;
+  top: 10.35vw;
+  width: 20.07vw;
+  height: 48.82vw;
+  object-fit: contain;
+  object-position: left top;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.me-philosophy-inner {
+  position: relative;
+  z-index: 2;
+  padding: 9.65vw 5.49vw 0;
+}
+
+.me-philosophy-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 6.6vw;
+  margin-bottom: 4.1vw;
+}
+
+.me-philosophy-label {
+  flex-shrink: 0;
+  margin-top: 0.83vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.32vw;
+  line-height: 1.1em;
+  letter-spacing: -0.04em;
+  color: #000;
+}
+
+.me-philosophy-quote {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.22vw;
+  line-height: 1.375em;
+  letter-spacing: -0.05em;
+  color: #000;
+}
+
+.me-philosophy-body {
+  display: flex;
+  gap: 0;
+}
+
+.me-philosophy-spacer {
+  flex-shrink: 0;
+  width: 19.79vw;
+}
+
+.me-values-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 2.08vw;
+  row-gap: 2.78vw;
+}
+
+.me-value-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.39vw;
+}
+
+.me-value-number {
+  position: relative;
+  padding-top: 0;
+  padding-bottom: 0.694vw;
+}
+
+.me-value-number span {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.32vw;
+  line-height: 1.1em;
+  letter-spacing: -0.04em;
+  color: #000;
+}
+
+.me-value-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.694vw;
+}
+
+.me-value-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.32vw;
+  line-height: 1.1em;
+  letter-spacing: -0.04em;
+  color: #000;
+}
+
+.me-value-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 0.972vw;
+  line-height: 1.9em;
+  color: #000;
+}
+
+/* ============================================
+   PROJECTS PAGE – HORIZONTAL SCROLL
+   ============================================ */
+
+html.projects-html {
+  overflow: hidden !important;
+}
+
+html.projects-html body {
+  height: 100vh !important;
+  overflow: hidden !important;
+  background: #F0F0F0 !important;
+}
+
+.proj-viewport {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.proj-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.proj-scroll {
+  position: relative;
+  width: calc(359.55vh + 100vw);
+  height: 100vh;
+  background: #F0F0F0;
+}
+
+.proj-plant {
+  position: absolute;
+  left: 0;
+  top: 12.98vh;
+  width: 31.09vh;
+  height: 87.02vh;
+  object-fit: contain;
+  object-position: left top;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.proj-logo {
+  position: absolute;
+  left: 9.86vh;
+  top: 6.62vh;
+  z-index: 3;
+  text-decoration: none;
+}
+
+.proj-logo-line {
+  width: 9.99vh;
+  height: 1.25vh;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.proj-logo:hover .proj-logo-line {
+  width: 17.61vh;
+}
+
+.proj-logo-text {
+  margin-top: 1vh;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 3.99vh;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.proj-nav {
+  position: absolute;
+  left: 132.21vh;
+  top: 6.62vh;
+  display: flex;
+  gap: 7.3vh;
+  z-index: 3;
+}
+
+.proj-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.25vh;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.proj-nav-link.active {
+  color: #090909;
+}
+
+.proj-nav-link:hover {
+  color: #090909;
+}
+
+.proj-card {
+  position: absolute;
+  overflow: hidden;
+  box-shadow: 0 0.5vh 0.75vh rgba(0, 0, 0, 0.15);
+}
+
+.proj-card img {
+  display: block;
+  width: 112%;
+  height: 112%;
+  margin: -6%;
+  object-fit: cover;
+  border: none;
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.proj-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Group 1 */
+.proj-golden-circle {
+  left: 38.58vh;
+  top: 22.60vh;
+  width: 60.67vh;
+  height: 54.81vh;
+}
+.proj-golden-circle img {
+  width: 105%;
+  height: 105%;
+  margin: -2.5%;
+}
+
+.proj-stellar {
+  left: 101.75vh;
+  top: 22.60vh;
+  width: 26.09vh;
+  height: 26.09vh;
+}
+
+.proj-rustberry {
+  left: 101.75vh;
+  top: 51.31vh;
+  width: 26.09vh;
+  height: 26.09vh;
+}
+
+/* Group 2 */
+.proj-khan {
+  left: 130.34vh;
+  top: 22.60vh;
+  width: 60.67vh;
+  height: 54.81vh;
+}
+
+.proj-su-build {
+  left: 193.38vh;
+  top: 22.60vh;
+  width: 26.09vh;
+  height: 26.09vh;
+}
+
+.proj-ethere {
+  left: 193.38vh;
+  top: 51.31vh;
+  width: 26.09vh;
+  height: 26.09vh;
+}
+
+.proj-kibbless {
+  left: 221.85vh;
+  top: 22.60vh;
+  width: 26.09vh;
+  height: 26.09vh;
+}
+
+/* Labels */
+.proj-label {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.87vh;
+  line-height: 1.4em;
+  color: #090909;
+  z-index: 1;
+}
+
+.proj-label-golden {
+  left: 38.58vh;
+  top: 78.90vh;
+}
+
+.proj-label-stellar {
+  left: 101.75vh;
+  top: 18.98vh;
+}
+
+.proj-label-rustberry {
+  left: 101.75vh;
+  top: 78.90vh;
+}
+
+.proj-label-khan {
+  left: 130.34vh;
+  top: 78.90vh;
+}
+
+.proj-label-su-build {
+  left: 193.38vh;
+  top: 18.98vh;
+}
+
+.proj-label-ethere {
+  left: 193.38vh;
+  top: 78.90vh;
+}
+
+.proj-label-kibbless {
+  left: 221.85vh;
+  top: 50.19vh;
+}
+
+/* Decorative */
+.proj-frog {
+  position: absolute;
+  left: 226.47vh;
+  top: 61.67vh;
+  width: 57.55vh;
+  height: 38.33vh;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.proj-vine {
+  position: absolute;
+  left: 294.13vh;
+  top: 0;
+  width: 65.54vh;
+  height: 34.58vh;
+  object-fit: contain;
+  object-position: right top;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.proj-more-text {
+  position: absolute;
+  left: 278.53vh;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 3.99vh;
+  line-height: 1.1em;
+  color: #090909;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.pmt-line1 {
+  font-weight: 500;
+  font-size: 3.85vh;
+  line-height: 1.12em;
+}
+
+.pmt-line2 {
+  font-weight: 700;
+  font-size: 5.35vh;
+  line-height: 1.08em;
+}
+
+.pmt-line3 {
+  font-weight: 900;
+  font-size: 3.85vh;
+  line-height: 1.12em;
+}
+
+/* Bottom markers */
+.proj-bottom-left {
+  position: absolute;
+  left: 38.58vh;
+  top: 87.27vh;
+  z-index: 3;
+}
+
+.proj-bottom-right {
+  position: absolute;
+  left: 327.97vh;
+  top: 87.27vh;
+  z-index: 3;
+  text-decoration: none;
+}
+
+.proj-section-title {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 3.99vh;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.proj-section-line {
+  margin-top: 0.5vh;
+  width: 9.99vh;
+  height: 1.25vh;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.proj-bottom-right:hover .proj-section-line {
+  width: 17.61vh;
+}
+
+.proj-footer-wrap {
+  position: absolute;
+  left: 359.55vh;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+.proj-footer-wrap .footer {
+  width: 100%;
+  height: 100%;
+}
+
+/* ============================================
+   GET IN TOUCH PAGE
+   ============================================ */
+
+.contact-page {
+  background: #F0F0F0;
+}
+
+.contact-hero {
+  position: relative;
+  width: 100%;
+  height: 55.625vw;
+  background: #F0F0F0;
+  overflow: hidden;
+}
+
+/* Logo left edge lines up with heading / form (5.49vw) inside centered header strip */
+.contact-hero .site-header .logo-group {
+  left: calc(5.49vw - (100vw - min(100vw, calc(1440px * var(--s)))) / 2 + 10px);
+}
+
+.contact-logo {
+  position: absolute;
+  left: 5.49vw;
+  top: 3.68vw;
+  z-index: 3;
+  text-decoration: none;
+}
+
+.contact-logo-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.contact-logo:hover .contact-logo-line {
+  width: 9.79vw;
+}
+
+.contact-logo-text {
+  margin-top: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.contact-nav {
+  position: absolute;
+  right: 4.65vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.1vw;
+  z-index: 3;
+}
+
+.contact-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.contact-nav-link.active {
+  color: #000;
+}
+
+.contact-nav-link:hover {
+  color: #090909;
+}
+
+.contact-heading {
+  position: absolute;
+  left: 5.49vw;
+  top: 11.94vw;
+  width: 33.06vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.22vw;
+  line-height: 2.0625em;
+  color: #090909;
+}
+
+.contact-form {
+  position: absolute;
+  left: 5.49vw;
+  top: 18.19vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.contact-label {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 1.4em;
+  color: #090909;
+}
+
+.contact-input {
+  width: 20.21vw;
+  height: 2.92vw;
+  background: rgba(217, 217, 217, 0.37);
+  border: 1px solid #000;
+  box-shadow: 0px 0.278vw 0.417vw rgba(0, 0, 0, 0.15);
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-size: 1.042vw;
+  padding: 0 0.7vw;
+  margin-bottom: 1.53vw;
+  outline: none;
+}
+
+.contact-textarea {
+  width: 33.06vw;
+  height: 9.65vw;
+  background: rgba(217, 217, 217, 0.37);
+  border: 1px solid #000;
+  box-shadow: 0px 0.278vw 0.417vw rgba(0, 0, 0, 0.15);
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-size: 1.042vw;
+  padding: 0.7vw;
+  margin-bottom: 3.40vw;
+  outline: none;
+  resize: none;
+}
+
+.contact-send-btn {
+  position: relative;
+  width: 18.66vw;
+  height: 3.89vw;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0px 0.278vw 0.417vw rgba(0, 0, 0, 0.15);
+  padding: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1),
+    box-shadow 0.45s ease;
+}
+
+.contact-send-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 65%
+  );
+  transform: translateX(-130%);
+  transition: transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+}
+
+.contact-send-btn:hover {
+  transform: translateY(-0.21vw) scale(1.02);
+  box-shadow:
+    0 0.556vw 1.11vw rgba(0, 0, 0, 0.22),
+    0 0.139vw 0 rgba(0, 0, 0, 0.06);
+}
+
+.contact-send-btn:hover::after {
+  transform: translateX(130%);
+}
+
+.contact-send-btn:active {
+  transform: translateY(0) scale(0.985);
+  box-shadow: 0px 0.139vw 0.278vw rgba(0, 0, 0, 0.18);
+  transition-duration: 0.12s;
+}
+
+.contact-send-btn:focus-visible {
+  outline: 2px solid #090909;
+  outline-offset: 3px;
+}
+
+.contact-send-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  transition: transform 0.55s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.contact-send-btn:hover .contact-send-bg {
+  transform: scale(1.08);
+}
+
+.contact-send-glass {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1;
+  transition: background 0.4s ease;
+}
+
+.contact-send-btn:hover .contact-send-glass {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.contact-send-text {
+  position: relative;
+  z-index: 3;
+  font-family: 'Inter', 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 1.39vw;
+  line-height: 1.2em;
+  letter-spacing: 0.024em;
+  text-transform: uppercase;
+  color: #F0F0F0;
+  text-shadow: 0 0.069vw 0.278vw rgba(0, 0, 0, 0.35);
+  transition: letter-spacing 0.45s cubic-bezier(0.34, 1.2, 0.64, 1), transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.contact-send-btn:hover .contact-send-text {
+  letter-spacing: 0.12em;
+  transform: translateY(-0.069vw);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-send-btn,
+  .contact-send-btn::after,
+  .contact-send-bg,
+  .contact-send-glass,
+  .contact-send-text {
+    transition: none;
+  }
+
+  .contact-send-btn:hover {
+    transform: none;
+  }
+
+  .contact-send-btn:hover .contact-send-bg {
+    transform: none;
+  }
+
+  .contact-send-btn:hover::after {
+    transform: translateX(-130%);
+  }
+
+  .contact-send-btn:hover .contact-send-text {
+    transform: none;
+    letter-spacing: 0.024em;
+  }
+}
+
+.contact-parrot {
+  position: absolute;
+  right: 0;
+  top: 21.74vw;
+  width: 45.14vw;
+  height: 33.89vw;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* ============================================
+   GOLDEN CIRCLE PROJECT PAGE
+   ============================================ */
+
+.gc-page {
+  background: #F0F0F0;
+}
+
+.gc-container {
+  position: relative;
+  width: 100%;
+  height: 457.57vw;
+  overflow: hidden;
+}
+
+/* Project pages: header logo aligns with left column text (centered 1440×--s strip) */
+.gc-container .site-header .logo-group,
+.khan-container .site-header .logo-group {
+  left: calc(5.56vw - (100vw - min(100vw, calc(1440px * var(--s)))) / 2 + 7px);
+}
+
+.se-container .site-header .logo-group,
+.rb-container .site-header .logo-group,
+.su-container .site-header .logo-group,
+.eb-container .site-header .logo-group,
+.kb-container .site-header .logo-group {
+  left: calc(5.49vw - (100vw - min(100vw, calc(1440px * var(--s)))) / 2 + 7px);
+}
+
+/* Logo */
+.gc-logo {
+  position: absolute;
+  left: 5.56vw;
+  top: 3.68vw;
+  z-index: 5;
+  text-decoration: none;
+}
+
+.gc-logo-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gc-logo:hover .gc-logo-line {
+  width: 9.79vw;
+}
+
+.gc-logo-text {
+  margin-top: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+/* Nav */
+.gc-nav {
+  position: absolute;
+  right: 4.86vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.1vw;
+  z-index: 5;
+}
+
+.gc-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.gc-nav-link.active {
+  color: #000;
+}
+
+.gc-nav-link:hover {
+  color: #090909;
+}
+
+/* Hero */
+.gc-date {
+  position: absolute;
+  left: 5.56vw;
+  top: 14.44vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.833vw;
+  line-height: 1.917em;
+  color: #090909;
+  z-index: 2;
+}
+
+.gc-hero-img {
+  position: absolute;
+  left: 5.56vw;
+  top: 16.32vw;
+  width: 51.74vw;
+  height: auto;
+  z-index: 2;
+}
+
+.gc-title {
+  position: absolute;
+  left: 59.72vw;
+  top: 16.53vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 2;
+}
+
+.gc-tags {
+  position: absolute;
+  left: 59.72vw;
+  top: 19.58vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 2;
+}
+
+.gc-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.833vw;
+  line-height: 1.917em;
+  color: #090909;
+}
+
+.gc-tag-sep {
+  display: inline-block;
+  width: 0.139vw;
+  height: 0.972vw;
+  background: #090909;
+  flex-shrink: 0;
+}
+
+.gc-description {
+  position: absolute;
+  left: 59.72vw;
+  top: 24.03vw;
+  width: 30.14vw;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  z-index: 2;
+}
+
+/* Video 1 - large centered */
+.gc-video1 {
+  position: absolute;
+  left: 20.0vw;
+  top: 56.74vw;
+  width: 75.14vw;
+  height: 42.29vw;
+  background: #000;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* The Challenge */
+.gc-section-title {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 3;
+}
+
+.gc-challenge-title {
+  left: 5.56vw;
+  top: 111.94vw;
+}
+
+.gc-section-text {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  width: 29.65vw;
+  z-index: 3;
+  white-space: pre-line;
+}
+
+.gc-challenge-text {
+  left: 5.56vw;
+  top: 114.79vw;
+}
+
+.gc-video2 {
+  position: absolute;
+  left: 47.15vw;
+  top: 111.94vw;
+  width: 47.99vw;
+  height: 27.01vw;
+  background: #000;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Parrots on branch */
+.gc-parrot1 {
+  position: absolute;
+  left: 0;
+  top: 145vw;
+  width: 48.5vw;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Monstera leaf */
+.gc-monstera {
+  position: absolute;
+  left: 0;
+  top: 176.88vw;
+  width: 30.07vw;
+  height: auto;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Image 2 - tall collage */
+.gc-img2 {
+  position: absolute;
+  left: 47.15vw;
+  top: 144.79vw;
+  width: 47.92vw;
+  height: auto;
+  z-index: 3;
+}
+
+/* Thinking Differently */
+.gc-thinking-title {
+  left: 5.56vw;
+  top: 244.03vw;
+}
+
+.gc-thinking-text {
+  left: 5.56vw;
+  top: 246.88vw;
+}
+
+/* Image 3 - social media */
+.gc-img3 {
+  position: absolute;
+  left: 47.08vw;
+  top: 274.98vw;
+  width: 47.99vw;
+  height: auto;
+  z-index: 2;
+}
+
+/* Eagle */
+.gc-eagle {
+  position: absolute;
+  left: 0.07vw;
+  top: 285.42vw;
+  width: 50.35vw;
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* Video 3 */
+.gc-video3 {
+  position: absolute;
+  left: 47.01vw;
+  top: 348.75vw;
+  width: 47.99vw;
+  height: 27.01vw;
+  background: #000;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Final Note */
+.gc-final-title {
+  left: 5.56vw;
+  top: 352.99vw;
+}
+
+.gc-final-text {
+  left: 5.56vw;
+  top: 355.83vw;
+}
+
+/* Image 4 - fight posters */
+.gc-img4 {
+  position: absolute;
+  left: 47.08vw;
+  top: 381.60vw;
+  width: 47.99vw;
+  height: auto;
+  z-index: 2;
+}
+
+/* Image 5 - website mockup */
+.gc-img5 {
+  position: absolute;
+  left: 46.88vw;
+  top: 414.51vw;
+  width: 47.99vw;
+  height: auto;
+  z-index: 2;
+}
+
+/* Return */
+.gc-return-link {
+  position: absolute;
+  left: 5.56vw;
+  top: 411.53vw;
+  text-decoration: none;
+  z-index: 3;
+}
+
+.gc-return-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.gc-return-line {
+  margin-top: 0.5vw;
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gc-return-link:hover .gc-return-line {
+  width: 9.79vw;
+}
+
+/* Red macaw */
+.gc-macaw {
+  position: absolute;
+  left: 0.07vw;
+  top: 430.83vw;
+  width: 25.90vw;
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+}
+
+
+/* ============================================
+   KHAN PROJECT PAGE
+   ============================================ */
+
+.khan-page {
+  background: #F0F0F0;
+}
+
+.khan-container {
+  position: relative;
+  width: 100%;
+  height: 317.50vw;
+  overflow: hidden;
+}
+
+/* Logo */
+.khan-logo {
+  position: absolute;
+  left: 5.56vw;
+  top: 3.68vw;
+  z-index: 5;
+  text-decoration: none;
+}
+
+.khan-logo-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.khan-logo:hover .khan-logo-line {
+  width: 9.79vw;
+}
+
+.khan-logo-text {
+  margin-top: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+/* Nav */
+.khan-nav {
+  position: absolute;
+  right: 4.86vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.1vw;
+  z-index: 5;
+}
+
+.khan-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.khan-nav-link.active {
+  color: #000;
+}
+
+.khan-nav-link:hover {
+  color: #090909;
+}
+
+/* Hero Title */
+.khan-title {
+  position: absolute;
+  left: 5.56vw;
+  top: 15.63vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 2;
+}
+
+/* Tags */
+.khan-tags {
+  position: absolute;
+  left: 5.56vw;
+  top: 18.33vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 2;
+}
+
+.khan-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.833vw;
+  line-height: 1.917em;
+  color: #090909;
+}
+
+.khan-tag-sep {
+  display: inline-block;
+  width: 0.139vw;
+  height: 0.972vw;
+  background: #090909;
+}
+
+/* Description */
+.khan-description {
+  position: absolute;
+  left: 5.56vw;
+  top: 22.71vw;
+  width: 30.14vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  z-index: 2;
+}
+
+/* Big Bag (right of hero) */
+.khan-big-bag {
+  position: absolute;
+  left: 47.43vw;
+  top: 15.63vw;
+  width: 47.92vw;
+  height: 31.94vw;
+  object-fit: cover;
+  z-index: 2;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+/* Frog */
+.khan-frog {
+  position: absolute;
+  left: 0.07vw;
+  top: 50.83vw;
+  width: 47.36vw;
+  height: 23.26vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Group 1: Restaurant + Truck + 3 small */
+.khan-group1 {
+  position: absolute;
+  left: 47.43vw;
+  top: 53.40vw;
+  width: 47.99vw;
+  height: 27.15vw;
+  z-index: 2;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.khan-restaurant {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 43.45%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.khan-truck {
+  position: absolute;
+  left: 43.45%;
+  top: 0;
+  width: 56.55%;
+  height: 66.75%;
+  object-fit: cover;
+}
+
+.khan-small-row {
+  position: absolute;
+  left: 43.45%;
+  top: 66.75%;
+  width: 56.55%;
+  height: 33.25%;
+  display: flex;
+}
+
+.khan-small-row .khan-small {
+  flex: 1;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Section titles */
+.khan-section-title {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 3;
+}
+
+.khan-challenge-title {
+  left: 5.56vw;
+  top: 86.39vw;
+}
+
+.khan-section-text {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  width: 29.65vw;
+  z-index: 3;
+}
+
+.khan-challenge-text {
+  left: 5.56vw;
+  top: 89.24vw;
+}
+
+/* Assets group (right of challenge) */
+.khan-assets {
+  position: absolute;
+  left: 47.43vw;
+  top: 86.39vw;
+  width: 48.06vw;
+  height: 68.16vw;
+  z-index: 2;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.khan-asset3 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 40.01%;
+  object-fit: cover;
+}
+
+.khan-asset4 {
+  position: absolute;
+  left: 0;
+  top: 40.01%;
+  width: 100%;
+  height: 59.99%;
+  object-fit: cover;
+  border-top: 2px solid #D7263D;
+}
+
+/* Showcase image (left side) */
+.khan-showcase {
+  position: absolute;
+  left: 0;
+  top: 116.67vw;
+  width: 47.62vw;
+  height: 36.07vw;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* The Outcome */
+.khan-outcome-title {
+  left: 5.56vw;
+  top: 160.42vw;
+}
+
+.khan-outcome-text {
+  left: 5.56vw;
+  top: 163.26vw;
+}
+
+/* Group 2: Food Bag + Packed Burger + Salad Box */
+.khan-group2 {
+  position: absolute;
+  left: 47.43vw;
+  top: 160.42vw;
+  width: 48.06vw;
+  height: 41.18vw;
+  z-index: 2;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.khan-food-bag {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 57.14%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.khan-packed-burger {
+  position: absolute;
+  left: 57.14%;
+  top: 0;
+  width: 42.86%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.khan-salad-box {
+  position: absolute;
+  left: 57.14%;
+  top: 50%;
+  width: 42.86%;
+  height: 50%;
+  object-fit: cover;
+}
+
+/* Leopard */
+.khan-leopard {
+  position: absolute;
+  left: 0.07vw;
+  top: 201.60vw;
+  width: 37.78vw;
+  height: 39.86vw;
+  object-fit: cover;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Billboard */
+.khan-billboard {
+  position: absolute;
+  left: 46.88vw;
+  top: 207.43vw;
+  width: 47.92vw;
+  height: 31.88vw;
+  object-fit: cover;
+  z-index: 2;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+/* Final Note */
+.khan-final-title {
+  left: 5.56vw;
+  top: 245.14vw;
+}
+
+.khan-final-text {
+  left: 5.56vw;
+  top: 247.99vw;
+}
+
+/* Group 3: Delivery Man + Box Burger + Pattern */
+.khan-group3 {
+  position: absolute;
+  left: 46.67vw;
+  top: 245.14vw;
+  width: 48.06vw;
+  height: 34.25vw;
+  z-index: 2;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.khan-delivery-man {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 56.94%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.khan-box-burger {
+  position: absolute;
+  left: 56.94%;
+  top: 0;
+  width: 43.06%;
+  height: 40.27%;
+  object-fit: cover;
+}
+
+.khan-pattern {
+  position: absolute;
+  left: 56.94%;
+  top: 40.27%;
+  width: 43.06%;
+  height: 59.73%;
+  object-fit: cover;
+}
+
+/* Group 4: Lighting Sign + Apron */
+.khan-group4 {
+  position: absolute;
+  left: 46.67vw;
+  top: 285.22vw;
+  width: 48.06vw;
+  height: 19.24vw;
+  z-index: 2;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+}
+
+.khan-sign {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60.0%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.khan-apron {
+  position: absolute;
+  left: 60.0%;
+  top: 0;
+  width: 40.0%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Return */
+.khan-return-link {
+  position: absolute;
+  left: 5.56vw;
+  top: 269.17vw;
+  text-decoration: none;
+  z-index: 3;
+}
+
+.khan-return-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.khan-return-line {
+  margin-top: 0.56vw;
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.khan-return-link:hover .khan-return-line {
+  width: 9.79vw;
+}
+
+/* Macaw parrot */
+.khan-macaw {
+  position: absolute;
+  left: 0.07vw;
+  bottom: 0;
+  width: 26vw;
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+}
+
+
+/* ============================================
+   RUSTBERRY SUPPLY PROJECT PAGE
+   ============================================ */
+
+.rb-page {
+  background: #F0F0F0;
+}
+
+.rb-container {
+  position: relative;
+  width: 100%;
+  height: 286.11vw;
+  overflow: hidden;
+}
+
+/* Logo */
+.rb-logo {
+  position: absolute;
+  left: 5.49vw;
+  top: 3.68vw;
+  z-index: 5;
+  text-decoration: none;
+}
+
+.rb-logo-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.rb-logo:hover .rb-logo-line {
+  width: 9.79vw;
+}
+
+.rb-logo-text {
+  margin-top: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+/* Nav */
+.rb-nav {
+  position: absolute;
+  right: 4.86vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.1vw;
+  z-index: 5;
+}
+
+.rb-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.rb-nav-link.active {
+  color: #000;
+}
+
+.rb-nav-link:hover {
+  color: #090909;
+}
+
+/* Hero Title */
+.rb-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 15.07vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 2;
+}
+
+/* Tags */
+.rb-tags {
+  position: absolute;
+  left: 5.49vw;
+  top: 17.78vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 2;
+}
+
+.rb-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.833vw;
+  line-height: 1.917em;
+  color: #090909;
+}
+
+.rb-tag-sep {
+  display: inline-block;
+  width: 0.139vw;
+  height: 0.972vw;
+  background: #090909;
+}
+
+/* Description */
+.rb-description {
+  position: absolute;
+  left: 5.49vw;
+  top: 21.94vw;
+  width: 30.14vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  z-index: 2;
+}
+
+/* Hero group image (right) */
+.rb-hero-img {
+  position: absolute;
+  left: 47.36vw;
+  top: 15.07vw;
+  width: 47.99vw;
+  height: 70.35vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Snake */
+.rb-snake {
+  position: absolute;
+  left: 0;
+  top: 38.96vw;
+  width: 48vw;
+  height: 31.60vw;
+  object-fit: cover;
+  object-position: left center;
+  z-index: 1;
+}
+
+/* Giraffe */
+.rb-giraffe {
+  position: absolute;
+  left: 0;
+  top: 80.56vw;
+  width: 35.69vw;
+  height: 30.49vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Clothing label */
+.rb-clothing-label {
+  position: absolute;
+  left: 47.36vw;
+  top: 91.25vw;
+  width: 47.99vw;
+  height: 36.04vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Section titles */
+.rb-section-title {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 3;
+}
+
+.rb-challenge-title {
+  left: 5.21vw;
+  top: 126.25vw;
+}
+
+.rb-section-text {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  width: 29.65vw;
+  z-index: 3;
+  white-space: pre-line;
+}
+
+.rb-challenge-text {
+  left: 5.21vw;
+  top: 129.10vw;
+}
+
+/* Storefronts (right of challenge) */
+.rb-storefronts {
+  position: absolute;
+  left: 47.36vw;
+  top: 133.13vw;
+  width: 47.78vw;
+  height: 31.74vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Grid (right, below storefronts) */
+.rb-grid {
+  position: absolute;
+  left: 47.36vw;
+  top: 170.69vw;
+  width: 47.92vw;
+  height: 63.12vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Return */
+.rb-return-link {
+  position: absolute;
+  left: 5.21vw;
+  top: 178.61vw;
+  text-decoration: none;
+  z-index: 3;
+}
+
+.rb-return-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.rb-return-line {
+  margin-top: 0.56vw;
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.rb-return-link:hover .rb-return-line {
+  width: 9.79vw;
+}
+
+/* Vine/showcase image */
+.rb-vine {
+  position: absolute;
+  left: 0;
+  top: 194.72vw;
+  width: 47.62vw;
+  height: 36.07vw;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Camping side view (right, bottom) */
+.rb-camping {
+  position: absolute;
+  left: 48.13vw;
+  top: 241.20vw;
+  width: 47.99vw;
+  height: 32.0vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Wallaby */
+.rb-wallaby {
+  position: absolute;
+  left: 0;
+  top: 251.53vw;
+  width: 34.86vw;
+  height: 34.58vw;
+  object-fit: cover;
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+/* ============================================
+   SU BUILD PROJECT PAGE
+   ============================================ */
+
+.su-page {
+  background: #F0F0F0;
+}
+
+.su-container {
+  position: relative;
+  width: 100%;
+  height: 286.11vw;
+  overflow: hidden;
+}
+
+.su-logo {
+  position: absolute;
+  left: 5.49vw;
+  top: 3.68vw;
+  z-index: 5;
+  text-decoration: none;
+}
+
+.su-logo-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.su-logo:hover .su-logo-line {
+  width: 9.79vw;
+}
+
+.su-logo-text {
+  margin-top: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.su-nav {
+  position: absolute;
+  right: 4.86vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.1vw;
+  z-index: 5;
+}
+
+.su-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.su-nav-link.active { color: #000; }
+.su-nav-link:hover { color: #090909; }
+
+/* Hero */
+.su-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 15.07vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 2;
+}
+
+.su-tags {
+  position: absolute;
+  left: 5.49vw;
+  top: 17.78vw;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  z-index: 2;
+}
+
+.su-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.833vw;
+  line-height: 1.917em;
+  color: #090909;
+}
+
+.su-tag-sep {
+  display: inline-block;
+  width: 0.139vw;
+  height: 0.972vw;
+  background: #090909;
+}
+
+.su-description {
+  position: absolute;
+  left: 5.49vw;
+  top: 20.35vw;
+  width: 30.14vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  z-index: 2;
+}
+
+/* Logo design (right) */
+.su-logo-design {
+  position: absolute;
+  left: 47.36vw;
+  top: 15.07vw;
+  width: 47.99vw;
+  height: 27.42vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Osprey (left) */
+.su-osprey {
+  position: absolute;
+  left: 0;
+  top: 34.31vw;
+  width: 44.93vw;
+  height: 42.36vw;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Logo detail (right) */
+.su-logo-detail {
+  position: absolute;
+  left: 47.36vw;
+  top: 48.32vw;
+  width: 47.99vw;
+  height: 32.50vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Business card */
+.su-business-card {
+  position: absolute;
+  left: 47.50vw;
+  top: 86.66vw;
+  width: 47.99vw;
+  height: 32.01vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Section titles */
+.su-section-title {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 3;
+}
+
+.su-challenge-title {
+  left: 5.49vw;
+  top: 86.67vw;
+}
+
+.su-section-text {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  width: 29.65vw;
+  z-index: 3;
+  white-space: pre-line;
+}
+
+.su-challenge-text {
+  left: 5.49vw;
+  top: 89.51vw;
+}
+
+/* Giraffe (left) */
+.su-giraffe {
+  position: absolute;
+  left: 0;
+  top: 120.42vw;
+  width: 39.86vw;
+  height: 34.10vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Mug */
+.su-mug {
+  position: absolute;
+  left: 47.36vw;
+  top: 124.51vw;
+  width: 47.99vw;
+  height: 35.97vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* The Outcome */
+.su-outcome-title {
+  left: 5.49vw;
+  top: 166.32vw;
+}
+
+.su-outcome-text {
+  left: 5.49vw;
+  top: 169.17vw;
+}
+
+/* Banner */
+.su-banner {
+  position: absolute;
+  left: 47.36vw;
+  top: 166.32vw;
+  width: 47.99vw;
+  height: 32.01vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Return */
+.su-return-link {
+  position: absolute;
+  left: 5.49vw;
+  top: 193.13vw;
+  text-decoration: none;
+  z-index: 3;
+}
+
+.su-return-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.su-return-line {
+  margin-top: 0.56vw;
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.su-return-link:hover .su-return-line {
+  width: 9.79vw;
+}
+
+/* Tile pattern */
+.su-tile-pattern {
+  position: absolute;
+  left: 47.36vw;
+  top: 204.17vw;
+  width: 47.99vw;
+  height: 27.03vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Vine */
+.su-vine {
+  position: absolute;
+  left: 0;
+  top: 206.46vw;
+  width: 47.62vw;
+  height: 36.07vw;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Box truck */
+.su-box-truck {
+  position: absolute;
+  left: 47.36vw;
+  top: 237.03vw;
+  width: 47.99vw;
+  height: 36.04vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+/* Frog */
+.su-frog {
+  position: absolute;
+  left: 1.46vw;
+  top: 257.71vw;
+  width: 42.71vw;
+  height: 28.40vw;
+  object-fit: cover;
+  z-index: 2;
+  pointer-events: none;
+}
+
+
+/* ============================================
+   STELLAR ESTATES PROJECT PAGE
+   ============================================ */
+
+.se-page { background: #F0F0F0; }
+
+.se-container {
+  position: relative;
+  width: 100%;
+  height: 286.11vw;
+  overflow: hidden;
+}
+
+.se-logo {
+  position: absolute;
+  left: 5.49vw;
+  top: 3.68vw;
+  z-index: 5;
+  text-decoration: none;
+}
+
+.se-logo-line {
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.se-logo:hover .se-logo-line {
+  width: 9.79vw;
+}
+
+.se-logo-text {
+  margin-top: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.se-nav {
+  position: absolute;
+  right: 4.86vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.1vw;
+  z-index: 5;
+}
+
+.se-nav-link {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.se-nav-link.active { color: #000; }
+.se-nav-link:hover { color: #090909; }
+
+.se-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 15.07vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 2;
+}
+
+.se-tags {
+  position: absolute;
+  left: 5.49vw;
+  top: 17.78vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.se-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.56vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.833vw;
+  line-height: 1.917em;
+  color: #090909;
+}
+
+.se-tag-sep {
+  display: inline-block;
+  width: 0.139vw;
+  height: 0.972vw;
+  background: #090909;
+}
+
+.se-description {
+  position: absolute;
+  left: 5.49vw;
+  top: 20.35vw;
+  width: 30.14vw;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  z-index: 2;
+}
+
+.se-img1 {
+  position: absolute;
+  left: 47.29vw;
+  top: 13.13vw;
+  width: 48.06vw;
+  height: 27.03vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-snake {
+  position: absolute;
+  left: 0;
+  top: 41.04vw;
+  width: 48.5vw;
+  height: 31.60vw;
+  object-fit: cover;
+  object-position: left center;
+  z-index: 1;
+}
+
+.se-img2 {
+  position: absolute;
+  left: 47.29vw;
+  top: 46.04vw;
+  width: 48.06vw;
+  height: 27.03vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-section-title {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 2.472vw;
+  line-height: 1;
+  color: #090909;
+  z-index: 3;
+}
+
+.se-challenge-title {
+  left: 5.49vw;
+  top: 78.82vw;
+}
+
+.se-section-text {
+  position: absolute;
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 1.042vw;
+  line-height: 2.053em;
+  color: #090909;
+  width: 29.65vw;
+  z-index: 3;
+  white-space: pre-line;
+}
+
+.se-challenge-text {
+  left: 5.49vw;
+  top: 81.67vw;
+}
+
+.se-img3 {
+  position: absolute;
+  left: 47.29vw;
+  top: 79.03vw;
+  width: 48.06vw;
+  height: 27.03vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-img4 {
+  position: absolute;
+  left: 47.29vw;
+  top: 111.67vw;
+  width: 48.06vw;
+  height: 27.03vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-frog {
+  position: absolute;
+  left: -0.07vw;
+  top: 110.28vw;
+  width: 48.5vw;
+  height: 23.26vw;
+  object-fit: cover;
+  object-position: left center;
+  z-index: 1;
+}
+
+.se-outcome-title {
+  left: 5.69vw;
+  top: 144.58vw;
+}
+
+.se-outcome-text {
+  left: 5.69vw;
+  top: 147.43vw;
+}
+
+.se-img5 {
+  position: absolute;
+  left: 47.43vw;
+  top: 144.58vw;
+  width: 47.92vw;
+  height: 26.95vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-leopard {
+  position: absolute;
+  left: 0;
+  top: 174.38vw;
+  width: 25.63vw;
+  height: 27.01vw;
+  object-fit: cover;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.se-img6 {
+  position: absolute;
+  left: 47.43vw;
+  top: 177.43vw;
+  width: 47.92vw;
+  height: 26.95vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-final-title {
+  left: 5.49vw;
+  top: 209.10vw;
+}
+
+.se-final-text {
+  left: 5.49vw;
+  top: 212.71vw;
+}
+
+.se-img7 {
+  position: absolute;
+  left: 47.43vw;
+  top: 209.93vw;
+  width: 47.92vw;
+  height: 26.95vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-img8 {
+  position: absolute;
+  left: 47.43vw;
+  top: 242.43vw;
+  width: 47.92vw;
+  height: 26.95vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.se-return-link {
+  position: absolute;
+  left: 5.49vw;
+  top: 235.0vw;
+  text-decoration: none;
+  z-index: 3;
+}
+
+.se-return-text {
+  font-family: 'Apertura', 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+}
+
+.se-return-line {
+  margin-top: 0.56vw;
+  width: 5.56vw;
+  height: 0.694vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.se-return-link:hover .se-return-line {
+  width: 9.79vw;
+}
+
+.se-macaw {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 26vw;
+  height: auto;
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* ===== Ethere Beauty Page ===== */
+
+.eb-page {
+  margin: 0;
+  background: #F0F0F0;
+  overflow-x: hidden;
+}
+
+.eb-container {
+  position: relative;
+  width: 100vw;
+  height: 321.53vw;
+  overflow: hidden;
+}
+
+.eb-logo {
+  position: absolute;
+  left: 5.49vw;
+  top: 3.68vw;
+  text-decoration: none;
+}
+
+.eb-logo-line {
+  width: 5.56vw;
+  height: 0.69vw;
+  background: #090909;
+  margin-bottom: 0.56vw;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.eb-logo:hover .eb-logo-line {
+  width: 9.79vw;
+}
+
+.eb-logo-text {
+  font-family: 'Apertura', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+  margin: 0;
+}
+
+.eb-nav {
+  position: absolute;
+  right: 5.63vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.10vw;
+}
+
+.eb-nav-link {
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+}
+
+.eb-nav-link.active {
+  color: #090909;
+}
+
+.eb-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 15.07vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 2.47vw;
+  line-height: 1.4em;
+  color: #090909;
+  margin: 0;
+}
+
+.eb-tags {
+  position: absolute;
+  left: 5.49vw;
+  top: 17.78vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 700;
+  font-size: 0.83vw;
+  line-height: 1.917em;
+  color: #090909;
+  display: flex;
+  flex-direction: column;
+}
+
+.eb-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+.eb-tag-sep {
+  display: inline-block;
+  width: 0.14vw;
+  height: 0.97vw;
+  background: #090909;
+}
+
+.eb-description {
+  position: absolute;
+  left: 5.49vw;
+  top: 21.94vw;
+  width: 30.14vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 2.053em;
+  color: #090909;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.eb-img1 {
+  position: absolute;
+  left: 47.36vw;
+  top: 15.35vw;
+  width: 47.99vw;
+  height: 27.93vw;
+  object-fit: cover;
+}
+
+.eb-giraffe {
+  position: absolute;
+  left: 0;
+  top: 48.75vw;
+  width: 35.76vw;
+  height: 30.63vw;
+  object-fit: cover;
+}
+
+.eb-shop-facade {
+  position: absolute;
+  left: 47.36vw;
+  top: 48.32vw;
+  width: 47.99vw;
+  height: 33.61vw;
+  object-fit: cover;
+}
+
+.eb-challenge-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 87.78vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 2.47vw;
+  line-height: 1;
+  color: #090909;
+  margin: 0;
+}
+
+.eb-challenge-text {
+  position: absolute;
+  left: 5.49vw;
+  top: 90.63vw;
+  width: 29.65vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 2.053em;
+  color: #090909;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.eb-old-new {
+  position: absolute;
+  left: 47.36vw;
+  top: 89.42vw;
+  width: 47.99vw;
+  height: 27.93vw;
+  object-fit: cover;
+}
+
+.eb-parrot {
+  position: absolute;
+  left: -0.07vw;
+  top: 121.11vw;
+  width: 47.43vw;
+  height: 35.03vw;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.eb-colors {
+  position: absolute;
+  left: 47.36vw;
+  top: 123.29vw;
+  width: 47.99vw;
+  height: 27.93vw;
+  object-fit: cover;
+}
+
+.eb-street-sign {
+  position: absolute;
+  left: 47.36vw;
+  top: 155.21vw;
+  width: 47.99vw;
+  height: 32.01vw;
+  object-fit: cover;
+}
+
+.eb-outcome-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 192.92vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 2.47vw;
+  line-height: 1;
+  color: #090909;
+  margin: 0;
+}
+
+.eb-outcome-text {
+  position: absolute;
+  left: 5.49vw;
+  top: 195.76vw;
+  width: 29.65vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 2.053em;
+  color: #090909;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.eb-business-card {
+  position: absolute;
+  left: 47.36vw;
+  top: 192.92vw;
+  width: 47.99vw;
+  height: 31.94vw;
+  object-fit: cover;
+}
+
+.eb-candle {
+  position: absolute;
+  left: 47.36vw;
+  top: 230.56vw;
+  width: 47.99vw;
+  height: 32.01vw;
+  object-fit: cover;
+}
+
+.eb-return-link {
+  position: absolute;
+  left: 5.49vw;
+  top: 228.68vw;
+  text-decoration: none;
+}
+
+.eb-return-text {
+  font-family: 'Apertura', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+  margin: 0 0 0.5vw 0;
+}
+
+.eb-return-line {
+  width: 5.56vw;
+  height: 0.69vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.eb-return-link:hover .eb-return-line {
+  width: 9.79vw;
+}
+
+.eb-mockup {
+  position: absolute;
+  left: 47.36vw;
+  top: 268.26vw;
+  width: 47.99vw;
+  height: 38.40vw;
+  object-fit: cover;
+}
+
+.eb-wallaby {
+  position: absolute;
+  left: 0;
+  top: 280.90vw;
+  width: 40.97vw;
+  height: 40.63vw;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* ===== Kibbless Page ===== */
+
+.kb-page {
+  margin: 0;
+  background: #F0F0F0;
+  overflow-x: hidden;
+}
+
+.kb-container {
+  position: relative;
+  width: 100vw;
+  height: 245.35vw;
+  overflow: hidden;
+}
+
+.kb-logo {
+  position: absolute;
+  left: 5.49vw;
+  top: 3.68vw;
+  text-decoration: none;
+}
+
+.kb-logo-line {
+  width: 5.56vw;
+  height: 0.69vw;
+  background: #090909;
+  margin-bottom: 0.56vw;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.kb-logo:hover .kb-logo-line {
+  width: 9.79vw;
+}
+
+.kb-logo-text {
+  font-family: 'Apertura', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+  margin: 0;
+}
+
+.kb-nav {
+  position: absolute;
+  right: 5.63vw;
+  top: 3.68vw;
+  display: flex;
+  gap: 4.10vw;
+}
+
+.kb-nav-link {
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 1.25vw;
+  line-height: 2em;
+  color: #868686;
+  text-decoration: none;
+}
+
+.kb-nav-link.active {
+  color: #090909;
+}
+
+.kb-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 15.07vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 2.47vw;
+  line-height: 1.4em;
+  color: #090909;
+  margin: 0;
+}
+
+.kb-tags {
+  position: absolute;
+  left: 5.49vw;
+  top: 17.78vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 700;
+  font-size: 0.83vw;
+  line-height: 1.917em;
+  color: #090909;
+  display: flex;
+  flex-direction: column;
+}
+
+.kb-tags-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5vw;
+}
+
+.kb-tag-sep {
+  display: inline-block;
+  width: 0.14vw;
+  height: 0.97vw;
+  background: #090909;
+}
+
+.kb-description {
+  position: absolute;
+  left: 5.49vw;
+  top: 21.94vw;
+  width: 30.14vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 2.053em;
+  color: #090909;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.kb-hero {
+  position: absolute;
+  left: 47.29vw;
+  top: 15.07vw;
+  width: 48.06vw;
+  height: 27.01vw;
+  object-fit: cover;
+}
+
+.kb-deco-left {
+  position: absolute;
+  left: 0;
+  top: 57.43vw;
+  width: 47.62vw;
+  height: 36.07vw;
+  object-fit: cover;
+  object-position: left center;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.kb-bags {
+  position: absolute;
+  left: 47.29vw;
+  top: 47.92vw;
+  width: 48.06vw;
+  height: 25.14vw;
+  object-fit: cover;
+  z-index: 2;
+}
+
+.kb-billboard {
+  position: absolute;
+  left: 47.29vw;
+  top: 78.89vw;
+  width: 48.06vw;
+  height: 32.63vw;
+  object-fit: cover;
+}
+
+.kb-challenge-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 111.53vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 2.47vw;
+  line-height: 1;
+  color: #090909;
+  margin: 0;
+}
+
+.kb-challenge-text {
+  position: absolute;
+  left: 5.49vw;
+  top: 114.38vw;
+  width: 29.65vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 2.053em;
+  color: #090909;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.kb-packaging {
+  position: absolute;
+  left: 47.29vw;
+  top: 117.36vw;
+  width: 48.06vw;
+  height: 27.01vw;
+  object-fit: cover;
+}
+
+.kb-outcome-title {
+  position: absolute;
+  left: 5.49vw;
+  top: 144.38vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 2.47vw;
+  line-height: 1;
+  color: #090909;
+  margin: 0;
+}
+
+.kb-outcome-text {
+  position: absolute;
+  left: 5.49vw;
+  top: 147.22vw;
+  width: 29.65vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 2.053em;
+  color: #090909;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.kb-grid-trio {
+  position: absolute;
+  left: 47.29vw;
+  top: 150.21vw;
+  width: 47.99vw;
+  height: 26.39vw;
+  object-fit: cover;
+}
+
+.kb-final-title {
+  position: absolute;
+  left: 5.63vw;
+  top: 176.60vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 450;
+  font-size: 2.47vw;
+  line-height: 1;
+  color: #090909;
+  margin: 0;
+}
+
+.kb-final-text {
+  position: absolute;
+  left: 5.63vw;
+  top: 179.44vw;
+  width: 29.65vw;
+  font-family: 'Apertura', sans-serif;
+  font-weight: 400;
+  font-size: 1.04vw;
+  line-height: 2.053em;
+  color: #090909;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.kb-large {
+  position: absolute;
+  left: 47.29vw;
+  top: 182.43vw;
+  width: 48.06vw;
+  height: 27.01vw;
+  object-fit: cover;
+}
+
+.kb-return-link {
+  position: absolute;
+  left: 5.63vw;
+  top: 201.74vw;
+  text-decoration: none;
+}
+
+.kb-return-text {
+  font-family: 'Apertura', sans-serif;
+  font-weight: 800;
+  font-size: 2.22vw;
+  line-height: 1.125em;
+  color: #090909;
+  margin: 0 0 0.5vw 0;
+}
+
+.kb-return-line {
+  width: 5.56vw;
+  height: 0.69vw;
+  background: #090909;
+  transition: width 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.kb-return-link:hover .kb-return-line {
+  width: 9.79vw;
+}
+
+.kb-dog-row {
+  position: absolute;
+  left: 47.29vw;
+  top: 215.28vw;
+  width: 48.06vw;
+  height: 19.31vw;
+  object-fit: cover;
+}
+
+.kb-leopard {
+  position: absolute;
+  left: 0;
+  top: 216.04vw;
+  width: 27.71vw;
+  height: 29.31vw;
+  object-fit: cover;
+  object-position: left center;
+  pointer-events: none;
+  z-index: 1;
+}

@@ -41,8 +41,10 @@ body.landing-body {
   }
 }
 
-body.landing-body .footer {
-  z-index: 5;
+/* Inner pages: match landing — trap header/nav stacking (e.g. .site-header z-index 12–15) inside
+   each top-level section so it cannot paint above the footer at the document root */
+body:not(.landing-body) > *:not(footer) {
+  isolation: isolate;
 }
 
 /* Full-width shell: leaf is NOT inside the centered column (avoids clipping & “double” edge) */
@@ -759,7 +761,8 @@ a.logo-group {
   background: #121212;
   overflow: hidden;
   isolation: isolate;
-  z-index: 5;
+  /* Above any in-page chrome (headers use z-index up to ~15) */
+  z-index: 100;
 }
 
 .footer-scene {
@@ -794,6 +797,8 @@ a.footer-col.footer-left {
   left: 50%;
   top: 19.73%;
   transform: translateX(-50%);
+  width: max-content;
+  max-width: min(85vw, 28rem);
   z-index: 3;
   /* Let clicks pass through empty area so email/Instagram (higher z-index) always receive taps */
   pointer-events: none;
@@ -876,11 +881,6 @@ a.footer-col.footer-left {
 
 .footer-social-link:hover {
   opacity: 0.7;
-}
-
-/* Horizontal Projects strip: footer lives in its own panel — match global footer stacking */
-html.projects-html .proj-footer-wrap .footer {
-  z-index: 5;
 }
 
 .footer-social-link svg {
@@ -1227,6 +1227,7 @@ html.projects-html body {
   width: calc(359.55vh + 100vw);
   height: 100vh;
   background: #F0F0F0;
+  isolation: isolate;
 }
 
 .proj-plant {
@@ -1519,6 +1520,8 @@ html.projects-html body {
   top: 0;
   width: 100vw;
   height: 100vh;
+  /* Above .site-header (z-index 15) inside .proj-scroll so footer icons stay clickable */
+  z-index: 25;
 }
 .proj-footer-wrap .footer {
   width: 100%;

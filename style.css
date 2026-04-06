@@ -795,6 +795,12 @@ a.footer-col.footer-left {
   top: 19.73%;
   transform: translateX(-50%);
   z-index: 3;
+  /* Let clicks pass through empty area so email/Instagram (higher z-index) always receive taps */
+  pointer-events: none;
+}
+
+.footer-center .footer-nav-link {
+  pointer-events: auto;
 }
 
 .footer-right {
@@ -803,7 +809,7 @@ a.footer-col.footer-left {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  z-index: 6;
+  z-index: 10;
 }
 
 .footer-line {
@@ -864,6 +870,8 @@ a.footer-col.footer-left {
   position: relative;
   z-index: 21;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .footer-social-link:hover {

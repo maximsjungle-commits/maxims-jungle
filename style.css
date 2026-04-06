@@ -798,6 +798,7 @@ a.footer-col.footer-left {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  z-index: 4;
 }
 
 .footer-line {
@@ -862,13 +863,14 @@ a.footer-col.footer-left {
 .footer-social-link svg {
   width: 2.95vw;
   height: auto;
+  pointer-events: none;
 }
 
 .footer-bottom-left {
   position: absolute;
   left: 5.49%;
   top: 59.93%;
-  z-index: 2;
+  z-index: 1;
   text-decoration: none;
   color: inherit;
   display: block;

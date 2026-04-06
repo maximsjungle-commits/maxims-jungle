@@ -1,40 +1,39 @@
 /**
- * Lenis smooth scroll — https://www.lenis.dev
- * Vertical pages use window scroll; Projects uses horizontal scroll on .proj-viewport.
+ * Lenis smooth scroll — https://github.com/darkroomengineering/lenis/blob/main/README.md
+ * Vertical pages: README "No-code usage" options.
+ * Projects page: horizontal scroll on .proj-viewport (same extras except anchors).
  */
-import Lenis from 'https://unpkg.com/lenis@1.3.21/dist/lenis.mjs';
+(function () {
+  if (typeof Lenis === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-function prefersReducedMotion() {
-  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-}
-
-function init() {
-  if (prefersReducedMotion()) return null;
-
-  const isProjects = document.documentElement.classList.contains('projects-html');
+  var isProjects = document.documentElement.classList.contains('projects-html');
 
   if (isProjects) {
-    const wrapper = document.querySelector('.proj-viewport');
-    const content = document.querySelector('.proj-scroll');
-    if (!wrapper || !content) return null;
-    return new Lenis({
-      wrapper,
-      content,
+    var wrapper = document.querySelector('.proj-viewport');
+    var content = document.querySelector('.proj-scroll');
+    if (!wrapper || !content) return;
+    window.lenisInstance = new Lenis({
+      wrapper: wrapper,
+      content: content,
       eventsTarget: wrapper,
       orientation: 'horizontal',
       gestureOrientation: 'vertical',
       autoRaf: true,
-      smoothWheel: true,
+      autoToggle: true,
+      allowNestedScroll: true,
+      naiveDimensions: true,
+      stopInertiaOnNavigate: true,
     });
+    return;
   }
 
-  return new Lenis({
+  window.lenisInstance = new Lenis({
     autoRaf: true,
-    smoothWheel: true,
+    autoToggle: true,
+    anchors: true,
+    allowNestedScroll: true,
+    naiveDimensions: true,
+    stopInertiaOnNavigate: true,
   });
-}
-
-const lenis = init();
-if (lenis) {
-  window.lenisInstance = lenis;
-}
+})();

@@ -6,11 +6,46 @@
 
 :root {
   --s: 1;
+  /* Custom scrollbar (Firefox scrollbar-color: thumb track) */
+  --scrollbar-track: #dedede;
+  --scrollbar-thumb: #789d7d;
+  --scrollbar-thumb-hover: #5f7a63;
+  --scrollbar-thumb-active: #4a5f4e;
 }
 
 html {
   /* Smooth scrolling is handled by Lenis (see js/lenis-init.js); avoid double-smoothing */
   scroll-behavior: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* WebKit — Chrome, Edge, Safari: pill thumb, subtle track */
+html::-webkit-scrollbar {
+  width: 11px;
+}
+html::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #f0f0f0 0%, var(--scrollbar-track) 35%, var(--scrollbar-track) 100%);
+  border-left: 1px solid rgba(9, 9, 9, 0.06);
+}
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #9eb89f 0%,
+    var(--scrollbar-thumb) 38%,
+    #5f7562 100%
+  );
+  border-radius: 100px;
+  border: 2px solid var(--scrollbar-track);
+  background-clip: padding-box;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+html::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+  border-color: #d5d5d5;
+}
+html::-webkit-scrollbar-thumb:active {
+  background: var(--scrollbar-thumb-active);
 }
 
 html, body {

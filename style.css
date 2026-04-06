@@ -860,6 +860,51 @@ a.footer-col.footer-left {
   opacity: 0.7;
 }
 
+/* Me, Projects list, Contact, case-study pages: email/Instagram above overlapping layers */
+body.me-page .footer,
+body.contact-page .footer,
+body.gc-page .footer,
+body.khan-page .footer,
+body.rb-page .footer,
+body.se-page .footer,
+body.su-page .footer,
+body.eb-page .footer,
+body.kb-page .footer,
+html.projects-html .proj-footer-wrap .footer {
+  position: relative;
+  z-index: 5;
+  isolation: isolate;
+}
+
+body.me-page .footer .footer-socials,
+body.contact-page .footer .footer-socials,
+body.gc-page .footer .footer-socials,
+body.khan-page .footer .footer-socials,
+body.rb-page .footer .footer-socials,
+body.se-page .footer .footer-socials,
+body.su-page .footer .footer-socials,
+body.eb-page .footer .footer-socials,
+body.kb-page .footer .footer-socials,
+html.projects-html .proj-footer-wrap .footer .footer-socials {
+  position: relative;
+  z-index: 20;
+}
+
+body.me-page .footer .footer-social-link,
+body.contact-page .footer .footer-social-link,
+body.gc-page .footer .footer-social-link,
+body.khan-page .footer .footer-social-link,
+body.rb-page .footer .footer-social-link,
+body.se-page .footer .footer-social-link,
+body.su-page .footer .footer-social-link,
+body.eb-page .footer .footer-social-link,
+body.kb-page .footer .footer-social-link,
+html.projects-html .proj-footer-wrap .footer .footer-social-link {
+  position: relative;
+  z-index: 21;
+  cursor: pointer;
+}
+
 .footer-social-link svg {
   width: 2.95vw;
   height: auto;

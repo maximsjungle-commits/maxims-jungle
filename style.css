@@ -18,6 +18,13 @@ html, body {
   overflow-x: hidden;
   overflow-y: auto;
   background: #F0F0F0;
+  /* Hide native scrollbar; scrolling still works (wheel, trackpad, keyboard, Lenis) */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 html:has(.landing-body),

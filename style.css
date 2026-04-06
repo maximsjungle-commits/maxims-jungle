@@ -787,11 +787,14 @@ a.footer-col.footer-left {
 .footer-left {
   left: 5.49%;
   top: 19.73%;
+  z-index: 4;
 }
 
 .footer-center {
   left: 50%;
   top: 19.73%;
+  transform: translateX(-50%);
+  z-index: 3;
 }
 
 .footer-right {
@@ -800,7 +803,7 @@ a.footer-col.footer-left {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  z-index: 4;
+  z-index: 6;
 }
 
 .footer-line {

@@ -1200,6 +1200,155 @@ a.footer-col.footer-left {
   width: 12.4vw;
 }
 
+/* Footer — mobile layout (Figma node 212:78 “Foother mobile”, 390×526) */
+@media (max-width: 720px) {
+  .footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(140px, 182px);
+    grid-template-rows: auto auto;
+    align-items: start;
+    column-gap: 16px;
+    row-gap: 28px;
+    width: 100%;
+    max-width: 100%;
+    min-height: min(526px, calc(100dvh - env(safe-area-inset-bottom, 0px)));
+    height: auto;
+    padding: 28px 24px max(32px, calc(16px + env(safe-area-inset-bottom, 0px)));
+    box-sizing: border-box;
+  }
+
+  .footer-scene {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    z-index: 0;
+    object-fit: cover;
+    object-position: 52% 72%;
+    min-height: 100%;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right,
+  .footer-bottom-left {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    transform: none;
+    z-index: 2;
+  }
+
+  .footer-left {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    width: auto;
+    max-width: 11rem;
+  }
+
+  .footer-right {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: auto;
+  }
+
+  .footer-bottom-left {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    width: auto;
+    max-width: 11rem;
+  }
+
+  .footer-center {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    align-self: start;
+    width: auto;
+    max-width: 12rem;
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-center .footer-line {
+    width: 80px;
+    height: 5px;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+  }
+
+  .footer-line-wide {
+    width: 109px;
+    height: 5px;
+    margin-bottom: 0;
+    flex-shrink: 0;
+  }
+
+  .footer-left .footer-line {
+    width: 44px;
+    height: 5px;
+    margin-bottom: 6px;
+  }
+
+  .footer-logo {
+    font-size: 18px;
+    line-height: 1.167em;
+  }
+
+  .footer-left:hover .footer-line {
+    width: 80px;
+  }
+
+  .footer-showcase {
+    font-size: 18px;
+    line-height: 1.167em;
+    margin-bottom: 6px;
+  }
+
+  .footer-bottom-left .footer-line {
+    width: 44px;
+    height: 5px;
+  }
+
+  .footer-bottom-left:hover .footer-line {
+    width: 101px;
+  }
+
+  .footer-nav-link {
+    font-size: 20px;
+    font-weight: 450;
+    line-height: 1.8em;
+    padding: 4px 0;
+    min-height: 36px;
+    box-sizing: border-box;
+  }
+
+  .footer-socials {
+    gap: 22px;
+    justify-content: flex-start;
+  }
+
+  .footer-social-link svg {
+    width: 42px;
+    height: auto;
+  }
+
+  html.projects-html .proj-footer-wrap .footer {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+  }
+}
+
 /* ============================================
    ME PAGE – ABOUT SECTION
    ============================================ */

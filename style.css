@@ -49,6 +49,12 @@ body.landing-body {
   }
 }
 
+/* Landing: mobile-only chrome (Figma 211:2) — hidden on desktop */
+.landing-mobile-divider,
+.landing-nav-toggle {
+  display: none;
+}
+
 /* Inner pages: match landing — trap header/nav stacking (e.g. .site-header z-index 12–15) inside
    each top-level section so it cannot paint above the footer at the document root */
 body:not(.landing-body) > *:not(footer) {
@@ -753,6 +759,268 @@ a.logo-group {
     aspect-ratio: 198 / 234;
     margin-left: auto;
     margin-right: 0;
+  }
+}
+
+/* ============================================
+   LANDING PAGE — Mobile only (Figma: Landing page mobile 211:2, 390×811)
+   Overrides generic max-width:720px rules above. Does not affect inner pages.
+   ============================================ */
+@media (max-width: 720px) {
+  body.landing-body.landing-nav-open {
+    overflow: hidden;
+  }
+
+  body.landing-body .landing-hero > .monstera-leaf {
+    left: 0;
+    top: 149px;
+    width: 105px;
+    max-height: 295px;
+    z-index: 1;
+  }
+
+  body.landing-body .landing-hero .page-wrapper {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: min(811px, calc(100vh + 120px));
+    height: auto;
+    padding: 0 24px 48px;
+    overflow: visible;
+    background: #f0f0f0;
+  }
+
+  body.landing-body .landing-hero .landing-mobile-divider {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 443px;
+    height: 1px;
+    background: #090909;
+    margin: 0;
+    width: 100%;
+    border: 0;
+    z-index: 25;
+    pointer-events: none;
+  }
+
+  body.landing-body .landing-hero .landing-nav-toggle {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 26px;
+    width: 24px;
+    height: 23px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 210;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body.landing-body .landing-hero .landing-nav-toggle::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 5px;
+    background: #090909;
+    border-radius: 1px;
+    box-shadow: 0 9px 0 #090909, 0 18px 0 #090909;
+  }
+
+  body.landing-body .landing-hero .nav-group {
+    position: fixed;
+    inset: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 96px 32px 48px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: clamp(20px, 6vw, 32px);
+    background: rgba(240, 240, 240, 0.98);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 200;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  body.landing-body.landing-nav-open .landing-hero .nav-group {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  body.landing-body .landing-hero .nav-link {
+    font-size: 20px;
+    font-weight: 500;
+    color: #090909;
+  }
+
+  body.landing-body .landing-hero .logo-group {
+    position: absolute;
+    left: 0;
+    top: 26px;
+    padding-top: 0;
+    z-index: 5;
+  }
+
+  body.landing-body .landing-hero .logo-text {
+    font-size: 18px;
+    line-height: 1.1667em;
+  }
+
+  body.landing-body .landing-hero .logo-underline {
+    width: 44px;
+    height: 5px;
+  }
+
+  body.landing-body .landing-hero .logo-group:hover .logo-underline {
+    width: 80px;
+  }
+
+  body.landing-body .landing-hero .welcome-text {
+    position: absolute;
+    left: auto;
+    right: 0;
+    top: 82px;
+    width: min(111px, 32vw);
+    font-size: 16px;
+    line-height: 1.3125em;
+    z-index: 6;
+  }
+
+  body.landing-body .landing-hero .wt-line1,
+  body.landing-body .landing-hero .wt-line2,
+  body.landing-body .landing-hero .wt-line3 {
+    text-align: left;
+    padding-right: 0;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  body.landing-body .landing-hero .wt-line2 {
+    font-weight: 800;
+  }
+
+  body.landing-body .landing-hero .hero-visual {
+    position: absolute;
+    left: 50%;
+    top: 140px;
+    transform: translateX(-50%);
+    width: min(334px, calc(100vw - 48px));
+    max-width: 334px;
+    margin: 0;
+    aspect-ratio: 781.73 / 758.03;
+  }
+
+  body.landing-body .landing-hero .frog-photo {
+    position: absolute;
+    left: 188px;
+    top: 210px;
+    right: auto;
+    width: 178px;
+    max-width: calc(100% - 188px - 12px);
+    height: auto;
+    aspect-ratio: 178 / 87;
+    object-fit: contain;
+    margin: 0;
+    z-index: 8;
+  }
+
+  body.landing-body .landing-hero .info-panel {
+    position: absolute;
+    left: 0;
+    right: auto;
+    top: 586px;
+    width: 100%;
+    max-width: 243px;
+    margin: 0;
+    padding-left: 0;
+    text-align: left;
+    background: transparent;
+    z-index: 9;
+  }
+
+  body.landing-body .landing-hero .name-text {
+    font-size: 36px;
+    line-height: 1.03em;
+  }
+
+  body.landing-body .landing-hero .name-underline {
+    width: 126px;
+    height: 10px;
+  }
+
+  body.landing-body .landing-hero .categories {
+    justify-content: flex-start;
+    font-size: 16px;
+    line-height: 3.25em;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+
+  body.landing-body .landing-hero .categories .sep {
+    width: 3px;
+    height: 23px;
+    margin: 0 15px;
+  }
+
+  body.landing-body .landing-hero .role-text {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 8px;
+    font-size: 36px;
+    line-height: 1.44em;
+    width: auto;
+  }
+
+  body.landing-body .landing-hero .role-underline {
+    margin-left: 0;
+    margin-right: 0;
+    width: 157px;
+    height: 10px;
+  }
+
+  body.landing-body .landing-hero .portfolio-section {
+    position: absolute;
+    left: 0;
+    top: 464px;
+    text-align: left;
+    margin: 0;
+    z-index: 7;
+  }
+
+  body.landing-body .landing-hero .portfolio-text {
+    font-size: 32px;
+    line-height: 1.125em;
+  }
+
+  body.landing-body .landing-hero .portfolio-underline {
+    width: 80px;
+    height: 10px;
+    margin-top: 8px;
+  }
+
+  body.landing-body .landing-hero .portfolio-section:hover .portfolio-underline {
+    width: 140px;
+  }
+
+  body.landing-body .landing-hero + .footer,
+  body.landing-body .footer {
+    margin-top: 0;
   }
 }
 

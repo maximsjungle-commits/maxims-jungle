@@ -23,7 +23,9 @@
       <h1 class="logo-text">MAXIM'S<br>JUNGLE</h1>
     </div>
 
-    <nav class="nav-group">
+    <button type="button" class="landing-nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="landing-nav"></button>
+
+    <nav class="nav-group" id="landing-nav">
       <a href="me.html" class="nav-link">Me</a>
       <a href="projects.html" class="nav-link">Projects</a>
       <a href="contact.html" class="nav-link">Get&nbsp;in&nbsp;touch</a>
@@ -85,6 +87,8 @@
 
     <img src="images/landing-frog.png" alt="" class="frog-photo">
 
+    <div class="landing-mobile-divider" aria-hidden="true"></div>
+
     <a href="projects.html" class="portfolio-section">
       <p class="portfolio-text">PORTFOLIO<br>SHOWCASE</p>
       <div class="portfolio-underline"></div>
@@ -145,6 +149,36 @@
       fit();
       window.addEventListener('resize', fit);
       window.addEventListener('orientationchange', function() { setTimeout(fit, 100); });
+    })();
+  </script>
+  <script>
+    (function() {
+      var btn = document.querySelector('.landing-nav-toggle');
+      var nav = document.getElementById('landing-nav');
+      if (!btn || !nav) return;
+      function close() {
+        document.body.classList.remove('landing-nav-open');
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+      }
+      function openNav() {
+        document.body.classList.add('landing-nav-open');
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Close menu');
+      }
+      btn.addEventListener('click', function() {
+        if (document.body.classList.contains('landing-nav-open')) close();
+        else openNav();
+      });
+      nav.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      window.addEventListener('resize', function() {
+        if (window.matchMedia('(min-width: 721px)').matches) close();
+      });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') close();
+      });
     })();
   </script>
   <script src="https://unpkg.com/lenis@1.3.21/dist/lenis.min.js"></script>

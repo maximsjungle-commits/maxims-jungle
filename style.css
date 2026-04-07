@@ -772,7 +772,7 @@ a.logo-group {
   }
 
   body.landing-body .landing-hero > .monstera-leaf {
-    left: 0;
+    left: max(8px, env(safe-area-inset-left, 0px));
     top: 149px;
     width: 105px;
     max-height: 295px;
@@ -786,9 +786,19 @@ a.logo-group {
     max-width: 390px;
     margin-left: auto;
     margin-right: auto;
-    min-height: min(811px, calc(100vh + 120px));
+    /* Derived from Figma 211:2 — positions follow real collage height (758/781.73) */
+    --land-collage-w: min(334px, calc(100vw - 48px));
+    --land-collage-h: calc(var(--land-collage-w) * 758.03 / 781.73);
+    --land-collage-top: 140px;
+    --land-after-collage: calc(var(--land-collage-top) + var(--land-collage-h));
+    --land-divider-top: calc(var(--land-after-collage) + 12px);
+    /* Figma: portfolio y 464 vs divider y 443 → 21px below line */
+    --land-portfolio-top: calc(var(--land-divider-top) + 1px + 20px);
+    /* Figma: info y 586 vs portfolio y 464 → +122px */
+    --land-info-top: calc(var(--land-portfolio-top) + 122px);
+    min-height: calc(var(--land-info-top) + 210px);
     height: auto;
-    padding: 0 24px 48px;
+    padding: 0 24px 56px;
     overflow: visible;
     background: #f0f0f0;
   }
@@ -796,13 +806,13 @@ a.logo-group {
   body.landing-body .landing-hero .landing-mobile-divider {
     display: block;
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 443px;
+    left: -24px;
+    right: -24px;
+    top: var(--land-divider-top);
+    width: auto;
     height: 1px;
     background: #090909;
     margin: 0;
-    width: 100%;
     border: 0;
     z-index: 25;
     pointer-events: none;
@@ -905,7 +915,7 @@ a.logo-group {
   body.landing-body .landing-hero .wt-line1,
   body.landing-body .landing-hero .wt-line2,
   body.landing-body .landing-hero .wt-line3 {
-    text-align: left;
+    text-align: right;
     padding-right: 0;
     font-size: 16px;
     font-weight: 800;
@@ -918,21 +928,22 @@ a.logo-group {
   body.landing-body .landing-hero .hero-visual {
     position: absolute;
     left: 50%;
-    top: 140px;
+    top: var(--land-collage-top);
     transform: translateX(-50%);
-    width: min(334px, calc(100vw - 48px));
+    width: var(--land-collage-w);
     max-width: 334px;
     margin: 0;
     aspect-ratio: 781.73 / 758.03;
+    z-index: 3;
   }
 
   body.landing-body .landing-hero .frog-photo {
     position: absolute;
-    left: 188px;
+    left: clamp(120px, 48vw, 188px);
     top: 210px;
     right: auto;
-    width: 178px;
-    max-width: calc(100% - 188px - 12px);
+    width: min(178px, 42vw);
+    max-width: calc(100% - 120px);
     height: auto;
     aspect-ratio: 178 / 87;
     object-fit: contain;
@@ -944,7 +955,7 @@ a.logo-group {
     position: absolute;
     left: 0;
     right: auto;
-    top: 586px;
+    top: var(--land-info-top);
     width: 100%;
     max-width: 243px;
     margin: 0;
@@ -997,10 +1008,11 @@ a.logo-group {
   body.landing-body .landing-hero .portfolio-section {
     position: absolute;
     left: 0;
-    top: 464px;
+    top: var(--land-portfolio-top);
     text-align: left;
     margin: 0;
     z-index: 7;
+    padding-right: 8px;
   }
 
   body.landing-body .landing-hero .portfolio-text {
